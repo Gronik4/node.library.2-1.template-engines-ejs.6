@@ -1,21 +1,16 @@
 <form method="POST" class="mt-5">
-  <div class="form-group">
-      <label for="inputTitle">Заголовок</label>
-      <input type="text"
-             value="<%= book.title %>"
-             name="title"
-             class="form-control"
-             id="inputTitle">
-  </div>
-
-  <div class="form-group">
-      <label for="inputTitle">Автор</label>
-      <input type="text"
-             value="<%= book.authors %>"
-             name="title"
-             class="form-control"
-             id="inputTitle">
-  </div>
+    <% fields.map((el, idx)=>{ %>
+      
+      <div class="form-group">
+        <label for="input-<%= el %>"><%= names[idx] %></label>
+        <input type="text"
+        value="<%= book.title %>"
+        name="<%= el %>"
+        class="form-control"
+        id="input-<%= el %>">
+    </div>  
+        
+    <% }) %>
 
   <div class="form-group">
       <label for="inputDesc">Описание</label>
