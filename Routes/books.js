@@ -30,7 +30,6 @@ router.get('/:id', (req, res)=> {
 });
 
 router.get('/create', (req, res)=> {
-  console.log('router.get-create');
   res.render('books/create', {
     title: 'Добавить в библиотеку новую книгу',
     book: {},
@@ -53,7 +52,7 @@ router.post('/create', (req, res)=> {
 router.get('update/:id', (req,res)=> {
   const{id} = req.params;
   const idx = stor.books.findIndex(el=> el.id === id);
-  if(idx === -1) {console.log(`get 'update/id idx= ${idx}`)
+  if(idx === -1) {
     res.redirect('/404?flag=get(update/:id)');
   } else {
     res.render('books/update', {
