@@ -9,7 +9,7 @@ const {fields, names} = require('../Utils/fields');
 router.get('/', (req, res)=> {
   const {books} = stor;
   res.render('books/index', {
-    title: 'Книги',
+    title: 'Все книги',
     book: books
   })
 });
@@ -18,18 +18,21 @@ router.get('/:id', (req, res)=> {
   const{id} = req.params;
   const idx = stor.books.findIndex(el=> el.id === id);
   if(idx === -1) {
-    res.redirect('/404');
+    res.redirect('/404?flag= error without get(/:id)');
   } else {
     res.render('books/view', {
       title: 'Все про книгу',
       book: stor.books[idx],
+      fields: fields,
+      names: names
     })
   }
 });
 
 router.get('/create', (req, res)=> {
+  console.log('router.get-create');
   res.render('books/create', {
-    title: 'Завести в библиотеку новую книгу',
+    title: 'Добавить в библиотеку новую книгу',
     book: {},
     fields: fields,
     names: names
@@ -42,7 +45,7 @@ router.post('/create', (req, res)=> {
   const newBook = new Book(id, title, description, authors, favorite, fileCover, fileName, fileBook);
   stor.books.push(newBook); 
   res.render('books/index', {
-    title: 'Книги',
+    title: 'Все книги',
     book: stor.books,
   })
 });
@@ -50,8 +53,8 @@ router.post('/create', (req, res)=> {
 router.get('update/:id', (req,res)=> {
   const{id} = req.params;
   const idx = stor.books.findIndex(el=> el.id === id);
-  if(idx === -1) {
-    res.redirect('/404');
+  if(idx === -1) {console.log(`get 'update/id idx= ${idx}`)
+    res.redirect('/404?flag=get(update/:id)');
   } else {
     res.render('books/update', {
       title: 'Book | view',
@@ -66,7 +69,7 @@ router.post('update/:id', (req,res)=> {
   const idx = stor.books.findIndex(el=> el.id === id);
   const {title, description, authors, favorite, fileCover, fileName, fileBoo} = req.body;
   if(idx === -1) {
-    res.redirect('/404');
+    res.redirect('/404?flag=post(update/:id)');
   } else {
     const {books} = stor;
     books[idx] = {

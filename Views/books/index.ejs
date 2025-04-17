@@ -2,7 +2,7 @@
 <%-include('../port/menu') %>
 
   <h1><%= title %></h1>
-  <a class="btn btn-sm btn-primary" href="book/create">Добавить запись</a>
+  <a class="btn btn-sm btn-primary" href="/book/create/">Добавить запись</a>
 
 <% if(book.length) { %>
   
@@ -21,10 +21,10 @@
                 <th scope="row"><%= idx +1 %></th>
                 <td><%= el.title %></td>
                 <td class="text-right">
-                    <a class="btn btn-sm btn-success" href="book/<%= el.id %>">
+                    <a class="btn btn-sm btn-success" href="/book/<%= el.id %>">
                         <i class="fa fa-eye" aria-hidden="true"></i>
                     </a>
-                    <a class="btn btn-sm btn-primary" href="book/update/<%= el.id %>">
+                    <a class="btn btn-sm btn-primary" href="/book/update/<%= el.id %>">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
                 </td>
