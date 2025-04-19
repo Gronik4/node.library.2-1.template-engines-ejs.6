@@ -14,21 +14,6 @@ router.get('/', (req, res)=> {
   })
 });
 
-router.get('/:id', (req, res)=> {
-  const{id} = req.params;
-  const idx = stor.books.findIndex(el=> el.id === id);
-  if(idx === -1) {
-    res.redirect('/404?flag= error without get(/:id)');
-  } else {
-    res.render('books/view', {
-      title: 'Все про книгу',
-      book: stor.books[idx],
-      fields: fields,
-      names: names
-    })
-  }
-});
-
 router.get('/create', (req, res)=> {
   res.render('books/create', {
     title: 'Добавить в библиотеку новую книгу',
@@ -49,34 +34,48 @@ router.post('/create', (req, res)=> {
   })
 });
 
-router.get('update/:id', (req,res)=> {
+router.get('/:id', (req, res)=> {
   const{id} = req.params;
   const idx = stor.books.findIndex(el=> el.id === id);
   if(idx === -1) {
-    res.redirect('/404?flag=get(update/:id)');
+    res.redirect('/404?flag= error without get(/:id)');
   } else {
-    res.render('books/update', {
-      title: 'Book | view',
+    res.render('books/view', {
+      title: 'Все про книгу',
       book: stor.books[idx],
       fields: fields,
       names: names
     })
   }
 });
-router.post('update/:id', (req,res)=> {
+
+router.get('/update/:id', (req,res)=> {
+  const{id} = req.params;
+  const idx = stor.books.findIndex(el=> el.id === id);
+  if(idx === -1) {
+    res.redirect('/404?flag= Without get(update/:id)');
+  } else {
+    res.render('books/update', {
+      title: 'Изменить данные о книге',
+      book: stor.books[idx],
+      fields: fields,
+      names: names
+    })
+  }
+});
+router.post('/update/:id', (req,res)=> {
   const{id} = req.params;
   const idx = stor.books.findIndex(el=> el.id === id);
   const {title, description, authors, favorite, fileCover, fileName, fileBoo} = req.body;
   if(idx === -1) {
-    res.redirect('/404?flag=post(update/:id)');
+    res.redirect('/404?flag= Without post(update/:id)');
   } else {
     const {books} = stor;
     books[idx] = {
       ...books[idx], title, description, authors, favorite, fileCover, fileName, fileBoo
     };
-    res.redirect(`book/${id}`)
+    res.redirect(`/book/${id}`)
   }
 });
-
 
 module.exports = router;
